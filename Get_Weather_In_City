@@ -1,5 +1,7 @@
 import requests
 
+#Based on openweathermap, which is where api and api_key is retrieved from
+
 api_key = "7d537ec8000f82e080fff4dbb838b92d"
 city = input("Provide city name: ")
 
