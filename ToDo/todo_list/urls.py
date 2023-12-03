@@ -4,7 +4,7 @@ from . import views
 
 
 urlpatterns = [
-    path("employees/", views.ToDoView.as_view(), name="Todos"),
-    path("employees/create", views.ToDoCreate.as_view(), name="Todocreate"),
-    path("employees/<int:pk>/update", views.ToDoUpdate.as_view(), name="Todoupdate"),
-    path("employees/<int:pk>/delete", views.ToDoDelete.as_view(), name="Tododelete")]
+    path("todos/", views.ToDoView.as_view(), name="Todos"),
+    path("todos/create", views.ToDoCreate.as_view(), name="Todocreate"),
+    path("todos/<int:pk>/update", views.ToDoUpdate.as_view(), name="Todoupdate"),
+    path("todos/<int:pk>/delete", views.ToDoDelete.as_view(), name="Tododelete")]
