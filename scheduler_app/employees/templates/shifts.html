@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%block head%}
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+{%endblock%}
+
+
+{% block content %}
+<h1>Shift</h1>
+<br>
+{% for shift in shifts %}
+  <div>
+    <div>
+      <a href = "{% url 'shiftupdate' shift.id %}" >{{shift}}</a>
+      <a href="{% url 'shiftdelete' shift.id %}" style="text-decoration: none; color: inherit;">❌</a>
+    </div>
+  </div>    
+  
+
+{% endfor %}
+
+
+
+
+{% endblock %}

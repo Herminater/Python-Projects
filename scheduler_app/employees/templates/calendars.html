@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%block head%}
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+{%endblock%}
+
+
+{% block content %}
+<h1>Calendar</h1>
+<br>
+
+{% for calendar in calendars %}
+<div style="display: flex; flex-wrap: wrap;">
+  <div style="width: 100%;">
+      <a href = "{% url 'calendarupdate' calendar.id %}" >{{calendar}}</a>
+      <a href="{% url 'calendardelete' calendar.id %}" style="text-decoration: none; color: inherit;">❌</a>
+      <a href="{% url 'fill' calendar.id %}">Fill</a>
+  </div>
+  <div style="width: 100%; display:flex; flex-wrap: wrap; align-items: center;">
+    <p>Add</p>
+    <form method="post" action="{% url 'shiftcreatewithoutdate' %}">
+    {% csrf_token %}
+    <button type="submit" style="display:inline; color: inherit; border-radius:20%; background-color: lightgreen;">
+        <!-- Content of your link goes here -->
+        ➕
+    </button>
+  </form>
+  </div>
+  
+  {% load custom_filters %}
+  
+  {% for day in calendar.days.all %}
+  <form method="post" action="{% url 'shiftcreate' date=day.date %}">
+    {% csrf_token %}
+    <div style="border: solid black; width: 150px; height: 150px; display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+      <p style="margin:0;">{{day.date}}</p>
+      {% if day.shifts.all %}
+      <br>
+      <p style="margin: 0;">Shifts:</p>
+      {% endif %}
+
+      {% for shift in day.shifts.all|sort_by_start_time %}
+        <div style="display: flex; flex-wrap: wrap;">
+          <a href="{% url 'shiftupdate' pk=shift.id date=day.date %}"style="margin: 0;">{{shift}}</a>  <!-- Make updateurl pass both id and date through new url -->
+          <a href="{% url 'shiftdelete' shift.id %}" style="text-decoration: none; color: inherit;">❌</a>
+        </div>
+        
+        {% empty %}
+        <p>No shifts for this day</p>
+      
+      {% endfor %}
+      </div>
+      <button type="submit" style="display:inherit; width: 30px; text-align: center; border-radius: 15px; text-decoration: none; color: inherit; padding: 4px; background-color: lightgreen;">
+          
+          ➕
+         
+      </button>
+    </div>
+  </form>
+ 
+  {% endfor %}
+  
+</div>  
+  
+
+{% endfor %}
+
+
+
+<a href="{% url 'calendarcreate' %}" style="display: inherit; text-align: center; border-radius: 15px; text-decoration: none; color: inherit; padding: 4px; background-color: lightgreen;">➕</a>
+{% endblock %}

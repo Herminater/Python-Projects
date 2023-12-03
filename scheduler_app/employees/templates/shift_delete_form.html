@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <h1>Are you sure you want to delete {{ shift }}?</h1>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="submit" name="confirm_delete" value="Delete This Instance">
+        {% if other_shifts_with_custom_id.exists %}
+            <p>There are other instances with the same custom_id. What would you like to do?</p>
+            <input type="submit" name="confirm_delete" value="Delete All Instances">
+        {% endif %}
+        <a href="{% url 'calendars' %}">Cancel</a>
+    </form>
+{% endblock %}

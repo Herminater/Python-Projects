@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{%block head%}
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+{%endblock%}
+
+{% block content %}
+    <h1>Employees</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>workdays</th>
+                <th>Note:</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for employee in employees%}
+            <tr>
+                <td>
+                    <a href = "{% url 'employeeupdate' employee.id %}" >{{employee.first_name}}</a>
+                </td>
+                <td></td>
+                <td><a href="{% url 'employeedelete' employee.id %}" style="text-decoration: none; color: inherit;">❌</a></td>
+            </tr>
+            
+        {% endfor %}
+        
+        </tbody>
+    </table>
+
+
+    <a href="{% url "employeecreate" %}" style="display: inherit; text-align: center; border-radius: 15px; text-decoration: none; color: inherit; padding: 4px; background-color: lightgreen;">➕</a>
+{% endblock %}
+
+

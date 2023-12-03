@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<head>
+  {% block head %}
+
+  {% endblock %}
+</head>
+<body>
+  <h1>Scheduler</h1>
+  <a href="{% url 'home'%}">Home</a>
+  <a href="{% url 'employees' %}">Employees</a>
+  <a href="{% url 'calendars' %}">Calendars</a>
+  <a href="{% url 'shifts' %}">Shifts</a>
+  {% block content %}
+  {% endblock %}
+
+</body>
